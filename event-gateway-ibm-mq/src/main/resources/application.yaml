@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: event-gateway
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/FREEPDB1
+    username: gateway
+    password: gateway
+  flyway:
+    enabled: true
+
+ibm:
+  mq:
+    queueManager: QM1
+    channel: DEV.APP.SVRCONN
+    connName: localhost(1414)
+    user: app
+    password: passw0rd
+
+logging:
+  structured:
+    format:
+      console: ecs # Elastic Common Schema JSON logs out of the box
+
+gateway:
+  mq-queue: DEV.QUEUE.1
+  max-retries: 3
+  routes:
+    PAYMENT_CREATED:
+      - recipientCode: LEDGER_SVC
+        targetUrl: https://webhook.site/7a4c0d00-4e7e-4da0-b551-a06f50107426
+      - recipientCode: ALERT_SVC
+        targetUrl: https://webhook.site/7a4c0d00-4e7e-4da0-b551-a06f50107426

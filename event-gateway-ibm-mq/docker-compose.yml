@@ -1,0 +1,20 @@
+services:
+  ibmmq:
+    image: icr.io/ibm-messaging/mq:latest
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM1
+      - MQ_ADMIN_PASSWORD=passw0rd
+      - MQ_APP_PASSWORD=passw0rd
+    ports:
+      - "1414:1414"
+      - "9443:9443" # IBM MQ Web Console
+
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    environment:
+      - ORACLE_PASSWORD=oracle
+      - APP_USER=gateway
+      - APP_USER_PASSWORD=gateway
+    ports:
+      - "1521:1521"
